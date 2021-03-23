@@ -564,7 +564,10 @@ class CenterNet(nn.Module):
             per_candidate_inds = candidate_inds[i] # n
             per_box_cls = per_box_cls[per_candidate_inds] # n
 
+            #pytorch<=1.4.0
             per_candidate_nonzeros = per_candidate_inds.nonzero() # n
+            # pytorch>1.5.0
+            # per_candidate_nonzeros = per_candidate_inds.nonzero(as_tuple=False)  # n
             per_box_loc = per_candidate_nonzeros[:, 0] # n
             per_class = per_candidate_nonzeros[:, 1] # n
 
