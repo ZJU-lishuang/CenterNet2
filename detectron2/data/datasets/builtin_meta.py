@@ -231,6 +231,137 @@ ADE20K_SEM_SEG_CATEGORIES = [
 # After processed by `prepare_ade20k_sem_seg.py`, id 255 means ignore
 # fmt: on
 
+xray_CATEGORIES =[
+    {"id": 22, "name": "塑料乳液瓶"},
+    {"id": 23, "name": "玻璃花露水"},
+    {"id": 24, "name": "塑料花露水"},
+    {"id": 25, "name": "玻璃香水"},
+    {"id": 30, "name": "金属罐装瓶"},
+    {"id": 31, "name": "化学品瓶"},
+    {"id": 32, "name": "塑料饮料瓶"},
+    {"id": 34, "name": "壶类"},
+    {"id": 35, "name": "塑料喷剂类"},
+    {"id": 36, "name": "酒瓶"},
+    {"id": 37, "name": "电动工具"},
+    {"id": 38, "name": "螺丝刀"},
+    {"id": 39, "name": "扳手"},
+    {"id": 40, "name": "手枪"},
+    {"id": 41, "name": "卡宾枪"},
+    {"id": 42, "name": "子弹群"},
+    {"id": 43, "name": "手雷"},
+    {"id": 44, "name": "鞭炮"},
+    {"id": 45, "name": "打火机"},
+    {"id": 46, "name": "火柴"},
+    {"id": 47, "name": "固体酒精"},
+    {"id": 49, "name": "菜刀"},
+    {"id": 50, "name": "砍刀"},
+    {"id": 51, "name": "斧头"},
+    {"id": 52, "name": "柴刀"},
+    {"id": 53, "name": "甘蔗刀"},
+    {"id": 54, "name": "西瓜刀"},
+    {"id": 55, "name": "水果刀"},
+    {"id": 56, "name": "美工刀"},
+    {"id": 57, "name": "陶瓷刀"},
+    {"id": 59, "name": "剪刀"},
+    {"id": 60, "name": "剑"},
+    {"id": 61, "name": "匕首"},
+    {"id": 62, "name": "钳子"},
+    {"id": 63, "name": "撬棍"},
+    {"id": 64, "name": "伸缩棍"},
+    {"id": 65, "name": "警棍"},
+    {"id": 66, "name": "狼牙棒"},
+    {"id": 67, "name": "双节棍"},
+    {"id": 68, "name": "铲锹"},
+    {"id": 69, "name": "锤"},
+    {"id": 70, "name": "锯"},
+    {"id": 71, "name": "钻头"},
+    {"id": 72, "name": "雨伞"},
+    {"id": 73, "name": "金属保温杯"},
+    {"id": 74, "name": "金属喷剂瓶"},
+    {"id": 75, "name": "金属易拉罐"},
+    {"id": 76, "name": "输液瓶"},
+    {"id": 77, "name": "玻璃饮料瓶"},
+    {"id": 78, "name": "酱料瓶"},
+    {"id": 79, "name": "笔记本电脑电池"},
+    {"id": 80, "name": "充电宝"},
+    {"id": 81, "name": "蓄电池"},
+    {"id": 82, "name": "电动车锂电池"},
+    {"id": 83, "name": "洗发水"},
+    {"id": 84, "name": "沐浴露"},
+    {"id": 85, "name": "发胶"},
+    {"id": 86, "name": "洗手液"},
+    {"id": 87, "name": "芦荟胶"},
+    {"id": 88, "name": "摩丝"},
+    {"id": 89, "name": "喷雾剂"},
+    {"id": 93, "name": "灭火器"},
+    {"id": 94, "name": "锉刀"},
+    {"id": 95, "name": "烙铁"},
+    {"id": 96, "name": "泥瓦刀"},
+    {"id": 98, "name": "玻璃乳液瓶"},
+    {"id": 99, "name": "塑料洗甲水"},
+    {"id": 103, "name": "金属化妆瓶"},
+    {"id": 117, "name": "手表"},
+    {"id": 125, "name": "相机"},
+    {"id": 126, "name": "手机"},
+    {"id": 129, "name": "玻璃水杯"},
+    {"id": 130, "name": "棍"},
+    {"id": 133, "name": "金属瓶"},
+    {"id": 134, "name": "飞镖"},
+    {"id": 135, "name": "刀片"},
+    {"id": 137, "name": "手铐"},
+    {"id": 138, "name": "书本"},
+    {"id": 139, "name": "枪支配件"},
+    {"id": 142, "name": "弹弓"},
+    {"id": 144, "name": "指虎"},
+    {"id": 300, "name": "塑料保温杯"},
+    {"id": 406, "name": "护照"},
+    {"id": 432, "name": "平板"},
+    {"id": 433, "name": "折叠刀"},
+    {"id": 436, "name": "名牌包包"},
+    {"id": 454, "name": "玻璃洗甲水"},
+    {"id": 481, "name": "线头剪"},
+    {"id": 482, "name": "武士刀"},
+    {"id": 483, "name": "双钺"},
+    {"id": 484, "name": "手榴弹"},
+    {"id": 485, "name": "镊子"},
+    {"id": 486, "name": "折叠剪刀"},
+    {"id": 488, "name": "弓"},
+    {"id": 489, "name": "透明胶"},
+    {"id": 490, "name": "绳标"},
+    {"id": 491, "name": "餐叉"},
+    {"id": 492, "name": "钺"},
+    {"id": 493, "name": "爪子刀"},
+    {"id": 494, "name": "钢叉"},
+    {"id": 495, "name": "剃刀"},
+    {"id": 496, "name": "不锈钢枪头"},
+    {"id": 497, "name": "蝴蝶刀"},
+    {"id": 498, "name": "玻璃胶"},
+    {"id": 499, "name": "袋装液体"},
+    {"id": 500, "name": "塑料桶"},
+    {"id": 501, "name": "峨眉刺"},
+    {"id": 502, "name": "手术刀"},
+    {"id": 503, "name": "镰刀"},
+    {"id": 504, "name": "尼泊尔刀"},
+    {"id": 505, "name": "塑料化妆品瓶"}
+]
+
+import random
+def _get_xray_instances_meta():
+    for k in xray_CATEGORIES:
+        k["isthing"] = 1
+        k["color"] =    [random.randint(0, 255) for _ in range(3)]
+    thing_ids = [k["id"] for k in xray_CATEGORIES if k["isthing"] == 1]
+    thing_colors = [k["color"] for k in xray_CATEGORIES if k["isthing"] == 1]
+    assert len(thing_ids) == 111, len(thing_ids)
+    # Mapping from the incontiguous COCO category id to an id in [0, 79]
+    thing_dataset_id_to_contiguous_id = {k: i for i, k in enumerate(thing_ids)}
+    thing_classes = [k["name"] for k in xray_CATEGORIES if k["isthing"] == 1]
+    ret = {
+        "thing_dataset_id_to_contiguous_id": thing_dataset_id_to_contiguous_id,
+        "thing_classes": thing_classes,
+        "thing_colors": thing_colors,
+    }
+    return ret
 
 def _get_coco_instances_meta():
     thing_ids = [k["id"] for k in COCO_CATEGORIES if k["isthing"] == 1]
@@ -347,4 +478,6 @@ def _get_builtin_metadata(dataset_name):
             "thing_classes": CITYSCAPES_THING_CLASSES,
             "stuff_classes": CITYSCAPES_STUFF_CLASSES,
         }
+    elif dataset_name == "xray":
+        return _get_xray_instances_meta()
     raise KeyError("No built-in metadata for dataset {}".format(dataset_name))

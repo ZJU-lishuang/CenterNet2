@@ -36,6 +36,18 @@ for key, (image_root, json_file) in _PREDEFINED_SPLITS_COCO.items():
         os.path.join("datasets", image_root),
     )
 
+_PREDEFINED_SPLITS_XRAY = {
+    "xary_coco_data": ("xray/imageset", "xray/xray_train.json"),
+}
+
+for key, (image_root, json_file) in _PREDEFINED_SPLITS_XRAY.items():
+    register_coco_instances(
+        key,
+        _get_builtin_metadata('xray'),
+        os.path.join("datasets", json_file) if "://" not in json_file else json_file,
+        os.path.join("datasets", image_root),
+    )
+
 _PREDEFINED_SPLITS_DISTILL_COCO = {
     "coco_un_yolov4_55_0.5": ("coco/unlabeled2017", "coco/annotations/yolov4_cocounlabeled_55_ann0.5.json"),
 }
