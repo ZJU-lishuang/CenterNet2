@@ -16,12 +16,12 @@ def parse_args():
     parser.add_argument(
         '--outdir', help="output dir for json files", default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/script', type=str)
     parser.add_argument('--task_id', type=int,
-                        default=[503,517,525,526,527,528,529,530,531,532,541,543,544,555,556,557,558,9999],
-                        # default=[9999],
+                        # default=[503,517,525,526,527,528,529,530,531,532,541,543,544,555,556,557,558,9999],
+                        default=[8],
                         help='task_id for xray')
     parser.add_argument(
         '--datadir', help="data dir for annotations to be converted",
-        default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/datasets/xray', type=str)
+        default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/datasets/xrayval', type=str)
     return parser.parse_args()
 
 def search(path,filename):
@@ -38,7 +38,7 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
     """Convert from labelme format to COCO person format - keypoint"""
     #保存的json文件后缀名
     sets = [
-         'train'
+         'val'
     ]
     #训练集，测试集，验证集路径
     ann_dirs = [
@@ -62,7 +62,7 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
             json_file_se="%s/json/*.json" % task_id
             json_file_se = os.path.join(data_dir, json_file_se)
             json_files = glob.glob(json_file_se)
-            for json_file in json_files:
+            for json_file in tqdm(json_files):
                 json_ann = json.load(open(json_file))
                 image = {}
                 image['id'] = img_id
@@ -74,7 +74,8 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
                     h,w,c=cur_image.shape
                     image['width']=w
                     image['height']=h
-                    image['file_name'] = json_ann['img']
+                    image_file = f"{task_id}/imageset/{json_ann['img']}"
+                    image['file_name'] = image_file
                     object_cls = json_ann['name']
                     ann = {}
                     ann['id'] = ann_id
@@ -95,7 +96,8 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
                 # base_dir=os.path.dirname(os.path.dirname(json_file))
                 # re = search(base_dir, json_ann["img"])
                 # image['file_name'] = re[0]
-                image['file_name'] = json_ann['img']
+                image_file = f"{task_id}/imageset/{json_ann['img']}"
+                image['file_name'] = image_file
                 images.append(image)
                 for objects_ann in objects_anns:
                     object_cls = objects_ann['name']
