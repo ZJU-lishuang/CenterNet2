@@ -4,6 +4,7 @@ import copy
 import torch
 import numpy as np
 import os
+from multiprocessing import Pool
 
 def box_iou(box1, box2):
     # https://github.com/pytorch/vision/blob/master/torchvision/ops/boxes.py
@@ -330,24 +331,43 @@ def analyze_individual_category(k,catId,cocoGt,cocoDt,scorethr=0.05,ovthresh=0.5
 
 
 def main():
-    gt_json="xray_val.json"
-    result_json="coco_instances_results.json"
+    # filehead = "DLA-BiFPN-P3_2"
+    # modelname="CenterNet2_DLA-BiFPN-P3_4x_train2"
+    filehead="DLA-BiFPN-P5_2"
+    modelname="CenterNet2_DLA-BiFPN-P5_640_24x_ST_train2"
+    result_json=f"../output/{modelname}/inference_xary_coco_data_val/coco_instances_results.json"
+    gt_json = "xray_val.json"
     cocoGt = COCO(gt_json)
     cocoDt = cocoGt.loadRes(result_json)
 
-    scorethr=0.01
-    ovthresh=0.5
+    scorethr=0.6
+    ovthresh=0.3
 
     catIds = cocoGt.getCatIds()
     #single class
     outputs={}
     mAP=[]
+
+    with Pool(processes=4) as pool:
+        args = [(k,catId,cocoGt,cocoDt,scorethr,ovthresh)
+                for k, catId in enumerate(catIds)]
+        analyze_results = pool.starmap(analyze_individual_category_with_ap, args)
+
     for k, catId in enumerate(catIds):
         nm = cocoGt.loadCats(catId)[0]
-        outputs[nm["name"]]=analyze_individual_category_with_ap(k,catId,cocoGt,cocoDt,scorethr,ovthresh)
+        print(f'--------------saving {k + 1}-{nm["name"]}---------------')
+        analyze_result = analyze_results[k]
+        outputs[nm["name"]]=analyze_result
         if "ap" in outputs[nm["name"]]:
             ap=outputs[nm["name"]]["ap"]
             mAP.append(ap)
+
+    # for k, catId in enumerate(catIds):
+    #     nm = cocoGt.loadCats(catId)[0]
+    #     outputs[nm["name"]]=analyze_individual_category_with_ap(k,catId,cocoGt,cocoDt,scorethr,ovthresh)
+    #     if "ap" in outputs[nm["name"]]:
+    #         ap=outputs[nm["name"]]["ap"]
+    #         mAP.append(ap)
 
     mAP = tuple(mAP)
 
@@ -375,7 +395,7 @@ def main():
             total_fns += fns
         item = '{},{},{},{},{},{},{}\n'.format(key, tps+fns, tps, fps, recall, wujian, ap)
         res.append(item)
-    with open(f'res_score{scorethr}_iou{ovthresh}.csv', 'w') as f:
+    with open(f'{filehead}_score{scorethr}_iou{ovthresh}.csv', 'w') as f:
         line_head = "类别名称,类别数,检出数,误检数,检出率,误检率,AP\n"
         f.write(line_head)
         f.write(''.join(res))
