@@ -37,7 +37,8 @@ for key, (image_root, json_file) in _PREDEFINED_SPLITS_COCO.items():
     )
 
 _PREDEFINED_SPLITS_XRAY = {
-    "xary_coco_data": ("xray/imageset", "xray/xray_train.json"),
+    "xary_coco_data": ("xray/", "xray/xray_train.json"),
+    "xary_coco_data_val": ("xray/", "xray/xray_val.json"),
 }
 
 for key, (image_root, json_file) in _PREDEFINED_SPLITS_XRAY.items():
