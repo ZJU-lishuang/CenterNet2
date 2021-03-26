@@ -23,7 +23,7 @@ def draw_bar(name_list, num_list):
     plt.xlabel('class')
     plt.ylabel('num')
     plt.title('the number of each class')
-    plt.savefig("num_class.png", dpi=300)
+    plt.savefig("num_class9999.png", dpi=300)
     plt.show()
 
 
@@ -38,8 +38,14 @@ def class_and_num(id_list, class_all_name):
         json_file_se = "%s/json/*.json" % task_id
         json_file_se = os.path.join(root, json_file_se)
         json_files = glob.glob(json_file_se)
-        for json_file in json_files:
+        for json_file in tqdm(json_files):
             img_info = json_load(json_file)
+            if task_id == 9999:
+                name=img_info['name']
+                if name in names:
+                    idx = names.index(name)
+                    a[idx] += 1
+                continue
             for ann in img_info['anns']:
                 name = ann['name']
                 if name in names:
@@ -68,7 +74,7 @@ if __name__ == "__main__":
 
     id_list = opt.task_id
     root = opt.root
-    # id_list.append(999)
+    id_list.append(9999)
     num_list = class_and_num(id_list, os.path.join(root,'xray_all.names'))
 
     name_list, count_list = [], []
