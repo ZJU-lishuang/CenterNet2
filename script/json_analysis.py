@@ -333,14 +333,14 @@ def analyze_individual_category(k,catId,cocoGt,cocoDt,scorethr=0.05,ovthresh=0.5
 def main():
     # filehead = "DLA-BiFPN-P3_2"
     # modelname="CenterNet2_DLA-BiFPN-P3_4x_train2"
-    filehead="DLA-BiFPN-P5_2"
-    modelname="CenterNet2_DLA-BiFPN-P5_640_24x_ST_train2"
+    filehead="DLA-BiFPN-P3"
+    modelname="CenterNet2_DLA-BiFPN-P3_4x_train2"
     result_json=f"../output/{modelname}/inference_xary_coco_data_val/coco_instances_results.json"
     gt_json = "xray_val.json"
     cocoGt = COCO(gt_json)
     cocoDt = cocoGt.loadRes(result_json)
 
-    scorethr=0.6
+    scorethr=0.49
     ovthresh=0.3
 
     catIds = cocoGt.getCatIds()
@@ -361,7 +361,8 @@ def main():
         if "ap" in outputs[nm["name"]]:
             ap=outputs[nm["name"]]["ap"]
             mAP.append(ap)
-
+   
+    # 单线程
     # for k, catId in enumerate(catIds):
     #     nm = cocoGt.loadCats(catId)[0]
     #     outputs[nm["name"]]=analyze_individual_category_with_ap(k,catId,cocoGt,cocoDt,scorethr,ovthresh)
@@ -377,11 +378,15 @@ def main():
 
     print(outputs)
     res = []
-    total_tps=0
+    total_tps = 0
     total_fps = 0
     total_fns = 0
+    total_gts = 0
     for key in outputs:
         value=outputs[key]
+        gts=value['总数']
+        if gts==0:
+            continue
         tps=value['检出']
         fps=value['误检']
         fns=value["漏检"]
@@ -390,7 +395,8 @@ def main():
         ap=0
         if 'ap' in value:
             ap=value['ap']
-            total_tps+=tps
+            total_gts += gts
+            total_tps += tps
             total_fps += fps
             total_fns += fns
         item = '{},{},{},{},{},{},{}\n'.format(key, tps+fns, tps, fps, recall, wujian, ap)
@@ -399,8 +405,10 @@ def main():
         line_head = "类别名称,类别数,检出数,误检数,检出率,误检率,AP\n"
         f.write(line_head)
         f.write(''.join(res))
-        total_recall=total_tps / (total_tps+total_fns + 1e-6)
-        total_wujian=total_fps / (total_fps + total_tps + 1e-6)
+        # total_recall=total_tps / (total_tps+total_fns + 1e-6)
+        # total_wujian=total_fps / (total_fps + total_tps + 1e-6)
+        total_recall = total_tps / (total_gts + 1e-6)
+        total_wujian = total_fps / (total_gts + 1e-6)
         line = '总数,{},{},{},{},{},{}\n'.format(total_tps+total_fns, total_tps, total_fps,
                                                 total_recall,
                                                 total_wujian, float(sum(mAP) / len(mAP)))

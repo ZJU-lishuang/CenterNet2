@@ -30,6 +30,8 @@ INPUT:
   TRAIN_SIZE: 640
   MIN_SIZE_TEST: 608
   MAX_SIZE_TEST: 900
+#  MIN_SIZE_TEST: 704
+#  MAX_SIZE_TEST: 1280
 DATASETS:
   TRAIN: ("xary_coco_data",)
   TEST: ("xary_coco_data_val",)

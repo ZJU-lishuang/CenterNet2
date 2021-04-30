@@ -1,0 +1,3 @@
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_DLA-BiFPN-P5_640_24x_ST.yaml --eval-only MODEL.WEIGHTS output/CenterNet2_DLA-BiFPN-P5_640_24x_ST_train2/model_final.pth
+
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_DLA-BiFPN-P5_640_24x_ST.yaml --eval-only --num-gpus 1

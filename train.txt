@@ -1,0 +1,7 @@
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_DLA-BiFPN-P5_640_24x_ST.yaml --num-gpus 1 SOLVER.IMS_PER_BATCH 2 SOLVER.BASE_LR 0.0025
+#多gpu下才使用syncbn
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_DLA-BiFPN-P3_4x.yaml --num-gpus 1 SOLVER.IMS_PER_BATCH 2 SOLVER.BASE_LR 0.0025
+
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_R2-101-DCN_896_4x.yaml --num-gpus 1 SOLVER.IMS_PER_BATCH 1 SOLVER.BASE_LR 0.0025
+
+python projects/CenterNet2/train_net.py --config-file projects/CenterNet2/configs/CenterNet2_R50_1x.yaml --num-gpus 1 SOLVER.IMS_PER_BATCH 2 SOLVER.BASE_LR 0.0025

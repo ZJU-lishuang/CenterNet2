@@ -1,0 +1,14 @@
+#demo test
+python projects/CenterNet2/demo.py --config-file projects/CenterNet2/configs/CenterNet2_R50_1x.yaml --input datasets/images/ --output datasets/output --opts MODEL.WEIGHTS models/CenterNet2_R50_1x.pth 
+
+#xray demo
+python projects/CenterNet2/demo.py --config-file projects/CenterNet2/configs/CenterNet2_DLA-BiFPN-P5_640_24x_ST.yaml --input datasets/xray_test/ --output datasets/output --opts MODEL.WEIGHTS models/CenterNet2_DLA-BiFPN-P5_640_24x_ST.pth 
+
+
+
+
+
+
+
+
+python tools/visualize_json_results.py --input coco_instances_results.json --output dir/ --dataset xary_coco_data_val

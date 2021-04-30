@@ -16,12 +16,12 @@ def parse_args():
     parser.add_argument(
         '--outdir', help="output dir for json files", default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/script', type=str)
     parser.add_argument('--task_id', type=int,
-                        # default=[503,517,525,526,527,528,529,530,531,532,541,543,544,555,556,557,558,9999],
-                        default=[8],
+                        default=[503,517,525,526,527,528,529,530,531,532,541,543,544,555,556,557,558,9999],
+                        # default=[8],
                         help='task_id for xray')
     parser.add_argument(
         '--datadir', help="data dir for annotations to be converted",
-        default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/datasets/xrayval', type=str)
+        default='/home/lishuang/Disk/gitlab/traincode/CenterNet2/datasets/xray', type=str)
     return parser.parse_args()
 
 def search(path,filename):
@@ -38,7 +38,7 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
     """Convert from labelme format to COCO person format - keypoint"""
     #保存的json文件后缀名
     sets = [
-         'val'
+         'train'
     ]
     #训练集，测试集，验证集路径
     ann_dirs = [
@@ -76,6 +76,7 @@ def convert_labelme_json_format(data_dir,id_list, out_dir):
                     image['height']=h
                     image_file = f"{task_id}/imageset/{json_ann['img']}"
                     image['file_name'] = image_file
+                    images.append(image)
                     object_cls = json_ann['name']
                     ann = {}
                     ann['id'] = ann_id

@@ -9,6 +9,7 @@ from collections import defaultdict
 import cv2
 import tqdm
 
+from projects.CenterNet2.centernet.data.datasets.coco import _PREDEFINED_SPLITS_COCO
 from detectron2.data import DatasetCatalog, MetadataCatalog
 from detectron2.structures import Boxes, BoxMode, Instances
 from detectron2.utils.file_io import PathManager
